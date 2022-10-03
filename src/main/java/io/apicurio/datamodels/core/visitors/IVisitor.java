@@ -18,17 +18,9 @@ package io.apicurio.datamodels.core.visitors;
 
 import io.apicurio.datamodels.core.models.Document;
 import io.apicurio.datamodels.core.models.Extension;
-import io.apicurio.datamodels.core.models.common.Contact;
-import io.apicurio.datamodels.core.models.common.ExternalDocumentation;
-import io.apicurio.datamodels.core.models.common.IDefinition;
-import io.apicurio.datamodels.core.models.common.Info;
-import io.apicurio.datamodels.core.models.common.License;
 import io.apicurio.datamodels.core.models.common.Operation;
 import io.apicurio.datamodels.core.models.common.Parameter;
 import io.apicurio.datamodels.core.models.common.Schema;
-import io.apicurio.datamodels.core.models.common.SecurityRequirement;
-import io.apicurio.datamodels.core.models.common.SecurityScheme;
-import io.apicurio.datamodels.core.models.common.Tag;
 
 /**
  * A basic visitor interface used to visit data model instances.
@@ -36,18 +28,9 @@ import io.apicurio.datamodels.core.models.common.Tag;
  */
 public interface IVisitor {
 
-    void visitContact(Contact node);
     void visitDocument(Document node);
     void visitExtension(Extension node);
-    void visitExternalDocumentation(ExternalDocumentation node);
-    void visitInfo(Info node);
-    void visitLicense(License node);
     void visitOperation(Operation node);
-    void visitParameterDefinition(IDefinition node);
     void visitParameter(Parameter node);
-    void visitSchemaDefinition(IDefinition node);
     void visitSchema(Schema node);
-    void visitSecurityRequirement(SecurityRequirement node);
-    void visitSecurityScheme(SecurityScheme node);
-    void visitTag(Tag node);
 }

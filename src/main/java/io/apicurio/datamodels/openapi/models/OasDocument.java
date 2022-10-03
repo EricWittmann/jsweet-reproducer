@@ -21,48 +21,19 @@ import java.util.List;
 
 import io.apicurio.datamodels.core.models.Document;
 import io.apicurio.datamodels.core.models.DocumentType;
-import io.apicurio.datamodels.core.models.common.ISecurityRequirementParent;
-import io.apicurio.datamodels.core.models.common.SecurityRequirement;
 
 /**
  * Models an OpenAPI document.
  * @author eric.wittmann@gmail.com
  */
-public abstract class OasDocument extends Document implements ISecurityRequirementParent {
+public abstract class OasDocument extends Document {
 
     public OasPaths paths;
-    public List<SecurityRequirement> security;
 
     /**
      * Creates an OAS Paths object.
      */
     public abstract OasPaths createPaths();
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.ISecurityRequirementParent#createSecurityRequirement()
-     */
-    @Override
-    public abstract OasSecurityRequirement createSecurityRequirement();
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.ISecurityRequirementParent#addSecurityRequirement(io.apicurio.datamodels.core.models.common.SecurityRequirement)
-     */
-    @Override
-    public SecurityRequirement addSecurityRequirement(SecurityRequirement securityRequirement) {
-        if (this.security == null) {
-            this.security = new ArrayList<>();
-        }
-        this.security.add(securityRequirement);
-        return securityRequirement;
-    }
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.ISecurityRequirementParent#getSecurityRequirements()
-     */
-    @Override
-    public List<SecurityRequirement> getSecurityRequirements() {
-        return this.security;
-    }
 
     /**
      * Returns true if the document is an OpenAPI 3.x document.

@@ -21,75 +21,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.apicurio.datamodels.compat.NodeCompat;
-import io.apicurio.datamodels.core.models.common.ExternalDocumentation;
-import io.apicurio.datamodels.core.models.common.IServerParent;
-import io.apicurio.datamodels.core.models.common.Server;
 import io.apicurio.datamodels.openapi.models.OasOperation;
-import io.apicurio.datamodels.openapi.models.OasParameter;
-import io.apicurio.datamodels.openapi.models.OasResponses;
-import io.apicurio.datamodels.openapi.models.OasSecurityRequirement;
 
 /**
  * Models an OpenAPI 3.0.x operation.
  * @author eric.wittmann@gmail.com
  */
-public class Oas30Operation extends OasOperation implements IServerParent {
+public class Oas30Operation extends OasOperation {
 
-    public Oas30RequestBody requestBody;
     public Map<String, Oas30Callback> callbacks = new LinkedHashMap<>();
-    public List<Server> servers;
-    
+
     /**
      * Constructor.
      * @param method
      */
     public Oas30Operation(String method) {
         super(method);
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.core.models.common.Operation#createExternalDocumentation()
-     */
-    @Override
-    public ExternalDocumentation createExternalDocumentation() {
-        ExternalDocumentation externalDocs = new Oas30ExternalDocumentation();
-        externalDocs._ownerDocument = this.ownerDocument();
-        externalDocs._parent = this;
-        return externalDocs;
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasOperation#createParameter()
-     */
-    @Override
-    public OasParameter createParameter() {
-        OasParameter param = new Oas30Parameter();
-        param._ownerDocument = this.ownerDocument();
-        param._parent = this;
-        return param;
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasOperation#createResponses()
-     */
-    @Override
-    public OasResponses createResponses() {
-        OasResponses responses = new Oas30Responses();
-        responses._ownerDocument = this.ownerDocument();
-        responses._parent = this;
-        return responses;
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasOperation#createSecurityRequirement()
-     */
-    @Override
-    public OasSecurityRequirement createSecurityRequirement() {
-        OasSecurityRequirement requirement = new Oas30SecurityRequirement();
-        requirement._ownerDocument = this.ownerDocument();
-        requirement._parent = this;
-        return requirement;
     }
 
     /**
@@ -135,61 +82,6 @@ public class Oas30Operation extends OasOperation implements IServerParent {
         List<Oas30Callback> rval = new ArrayList<>();
         rval.addAll(this.callbacks.values());
         return rval;
-    }
-
-    /**
-     * Creates a child RequestBody model.
-     */
-    public Oas30RequestBody createRequestBody() {
-        Oas30RequestBody rval = new Oas30RequestBody();
-        rval._ownerDocument = this.ownerDocument();
-        rval._parent = this;
-        return rval;
-    }
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.IServerParent#createServer()
-     */
-    @Override
-    public Server createServer() {
-        Oas30Server rval = new Oas30Server();
-        rval._ownerDocument = this.ownerDocument();
-        rval._parent = this;
-        return rval;
-    }
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.IServerParent#addServer(io.apicurio.datamodels.core.models.common.Server)
-     */
-    @Override
-    public void addServer(Server server) {
-        if (this.servers == null) {
-            this.servers = new ArrayList<>();
-        }
-        this.servers.add((Oas30Server) server);
-    }
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.IServerParent#getServer(java.lang.String)
-     */
-    @Override
-    public Server getServer(String url) {
-        if (this.servers != null) {
-            for (Server server : this.servers) {
-                if (NodeCompat.equals(server.url, url)) {
-                    return server;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @see io.apicurio.datamodels.core.models.common.IServerParent#getServers()
-     */
-    @Override
-    public List<Server> getServers() {
-        return this.servers;
     }
 
 }

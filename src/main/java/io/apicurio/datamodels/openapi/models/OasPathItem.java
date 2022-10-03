@@ -29,7 +29,7 @@ import io.apicurio.datamodels.openapi.visitors.IOasVisitor;
  * Models an OpenAPI path item.
  * @author eric.wittmann@gmail.com
  */
-public abstract class OasPathItem extends ExtensibleNode implements IOasParameterParent, IReferenceNode {
+public abstract class OasPathItem extends ExtensibleNode implements IReferenceNode {
 
     private String _path;
     public String $ref;
@@ -40,8 +40,7 @@ public abstract class OasPathItem extends ExtensibleNode implements IOasParamete
     public OasOperation options;
     public OasOperation head;
     public OasOperation patch;
-    public List<OasParameter> parameters;
-    
+
     /**
      * Constructor.
      * @param path
@@ -69,30 +68,6 @@ public abstract class OasPathItem extends ExtensibleNode implements IOasParamete
     }
 
     /**
-     * @see io.apicurio.datamodels.openapi.models.IOasParameterParent#getParameters()
-     */
-    @Override
-    public List<OasParameter> getParameters() {
-        return parameters;
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.openapi.models.IOasParameterParent#getParametersIn(java.lang.String)
-     */
-    @Override
-    public List<OasParameter> getParametersIn(String in) {
-        List<OasParameter> params = new ArrayList<>();
-        if (!NodeCompat.isNullOrUndefined(this.parameters)) {
-            this.parameters.forEach(param -> {
-                if (NodeCompat.equals(param.in, in)) {
-                    params.add(param);
-                }
-            });
-        }
-        return params;
-    }
-
-    /**
      * Gets the path string.
      */
     public String getPath() {
@@ -113,41 +88,6 @@ public abstract class OasPathItem extends ExtensibleNode implements IOasParamete
      * @param method
      */
     public abstract OasOperation createOperation(String method);
-
-    /**
-     * Creates a child parameter.
-     */
-    public abstract OasParameter createParameter();
-
-    /**
-     * Adds a parameter.
-     * @param param
-     */
-    public OasParameter addParameter(OasParameter param) {
-        if (this.parameters == null) {
-            this.parameters = new ArrayList<>();
-        }
-        this.parameters.add(param);
-        return param;
-    }
-
-    /**
-     * Returns a single, unique parameter identified by "in" and "name" (which are the two
-     * properties that uniquely identify a parameter).  Returns null if no parameter is found.
-     * @param in
-     * @param name
-     */
-    public OasParameter getParameter(String in, String name) {
-        if (this.parameters == null) {
-            return null;
-        }
-        for (OasParameter param : this.parameters) {
-            if (NodeCompat.equals(in, param.in) && NodeCompat.equals(name, param.name)) {
-                return param;
-            }
-        }
-        return null;
-    }
 
     /**
      * Sets the given operation on this path item.

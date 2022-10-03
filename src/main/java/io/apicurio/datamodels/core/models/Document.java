@@ -16,13 +16,6 @@
 
 package io.apicurio.datamodels.core.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.apicurio.datamodels.core.models.common.ExternalDocumentation;
-import io.apicurio.datamodels.core.models.common.IExternalDocumentationParent;
-import io.apicurio.datamodels.core.models.common.Info;
-import io.apicurio.datamodels.core.models.common.Tag;
 import io.apicurio.datamodels.core.visitors.IVisitor;
 
 /**
@@ -31,11 +24,7 @@ import io.apicurio.datamodels.core.visitors.IVisitor;
  * represents the root node of the data model.
  * @author eric.wittmann@gmail.com
  */
-public abstract class Document extends ExtensibleNode implements IExternalDocumentationParent {
-
-    public Info info;
-    public List<Tag> tags;
-    public ExternalDocumentation externalDocs;
+public abstract class Document extends ExtensibleNode {
 
     /**
      * Constructor.
@@ -56,58 +45,6 @@ public abstract class Document extends ExtensibleNode implements IExternalDocume
     @Override
     public void accept(IVisitor visitor) {
         visitor.visitDocument(this);
-    }
-    
-    /**
-     * Creates an Info node.
-     */
-    public abstract Info createInfo();
-
-    /**
-     * Creates a Tag node.
-     */
-    public abstract Tag createTag();
-
-    /**
-     * Adds a tag.
-     * @param name
-     * @param description
-     */
-    public Tag addTag(String name, String description) {
-        Tag tag = this.createTag();
-        tag.name = name;
-        tag.description = description;
-        if (this.tags == null) {
-            this.tags = new ArrayList<>();
-        }
-        this.tags.add(tag);
-        return tag;
-    }
-
-    /**
-     * Creates an External Documentation node.
-     */
-    public abstract ExternalDocumentation createExternalDocumentation();
-    
-    /**
-     * @see io.apicurio.datamodels.core.models.common.IExternalDocumentationParent#setExternalDocumentation(io.apicurio.datamodels.core.models.common.ExternalDocumentation)
-     */
-    @Override
-    public void setExternalDocumentation(ExternalDocumentation externalDocs) {
-        this.externalDocs = externalDocs;
-    }
-    
-    /**
-     * Sets the external documentation information.
-     * @param description
-     * @param url
-     */
-    public ExternalDocumentation setExternalDocumentation(String description, String url) {
-        ExternalDocumentation ed = this.createExternalDocumentation();
-        ed.description = description;
-        ed.url = url;
-        this.externalDocs = ed;
-        return ed;
     }
 
     @Override
