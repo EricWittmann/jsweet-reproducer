@@ -16,39 +16,11 @@
 
 package io.apicurio.datamodels.core.models;
 
-import io.apicurio.datamodels.core.visitors.IVisitor;
-
 /**
  * The base class for all document nodes.  This base class is extended
  * by the OpenAPI and AsyncAPI data model classes.  A Document model
  * represents the root node of the data model.
  * @author eric.wittmann@gmail.com
  */
-public abstract class Document extends ExtensibleNode {
-
-    /**
-     * Constructor.
-     */
-    public Document() {
-        this._ownerDocument = this;
-        this._parent = null;
-    }
-
-    /**
-     * Called to get the type of document.
-     */
-    public abstract DocumentType getDocumentType();
-
-    /**
-     * @see io.apicurio.datamodels.core.models.Node#accept(io.apicurio.datamodels.core.visitors.IVisitor)
-     */
-    @Override
-    public void accept(IVisitor visitor) {
-        visitor.visitDocument(this);
-    }
-
-    @Override
-    public boolean isAttached() {
-        return true;
-    }
+public interface Document extends ExtensibleNode {
 }

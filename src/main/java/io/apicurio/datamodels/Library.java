@@ -17,7 +17,7 @@
 package io.apicurio.datamodels;
 
 import io.apicurio.datamodels.core.models.Document;
-import io.apicurio.datamodels.openapi.v3.models.Oas30Document;
+import io.apicurio.datamodels.openapi.v3.models.Oas30DocumentImpl;
 
 /**
  * The most common entry points into using the data models library.  Provides convenience methods
@@ -28,10 +28,9 @@ import io.apicurio.datamodels.openapi.v3.models.Oas30Document;
 public class Library {
     
     /**
-     * Creates a new, empty document of the given type.
-     * @param type
+     * Creates a new, empty document.
      */
     public static Document createDocument() {
-        return new Oas30Document();
+        return new Oas30DocumentImpl();
     }
 }

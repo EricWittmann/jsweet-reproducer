@@ -16,23 +16,11 @@
 
 package io.apicurio.datamodels.openapi.v3.models;
 
-import io.apicurio.datamodels.openapi.models.OasPathItem;
 import io.apicurio.datamodels.openapi.models.OasPaths;
 
 /**
  * @author eric.wittmann@gmail.com
  */
-public class Oas30Paths extends OasPaths {
-
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasPaths#createPathItem(java.lang.String)
-     */
-    @Override
-    public OasPathItem createPathItem(String path) {
-        Oas30PathItem pathItem = new Oas30PathItem(path);
-        pathItem._ownerDocument = this.ownerDocument();
-        pathItem._parent = this;
-        return pathItem;
-    }
+public interface Oas30Paths extends OasPaths {
 
 }

@@ -16,33 +16,22 @@
 
 package io.apicurio.datamodels.openapi.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.apicurio.datamodels.core.models.common.Operation;
+
+import java.util.List;
 
 /**
  * Models an OpenAPI operation.
  * @author eric.wittmann@gmail.com
  */
-public abstract class OasOperation extends Operation {
+public interface OasOperation extends Operation {
 
-    public List<String> tags;
-    public Boolean deprecated;
-
-    /**
-     * Constructor.
-     * @param method
-     */
-    public OasOperation(String method) {
-        super(method);
-    }
+    public List<String> getTags();
+    public Boolean isDeprecated();
 
     /**
      * Gets the operation's method.
      */
-    public String getMethod() {
-        return this.getType();
-    }
+    public String getMethod();
 
 }

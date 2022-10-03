@@ -16,30 +16,19 @@
 
 package io.apicurio.datamodels.openapi.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.apicurio.datamodels.core.models.Document;
-import io.apicurio.datamodels.core.models.DocumentType;
 
 /**
  * Models an OpenAPI document.
  * @author eric.wittmann@gmail.com
  */
-public abstract class OasDocument extends Document {
+public interface OasDocument extends Document {
 
-    public OasPaths paths;
+    public OasPaths getPaths();
 
     /**
      * Creates an OAS Paths object.
      */
     public abstract OasPaths createPaths();
-
-    /**
-     * Returns true if the document is an OpenAPI 3.x document.
-     */
-    public boolean is3xDocument() {
-        return this.getDocumentType() == DocumentType.openapi3;
-    }
 
 }

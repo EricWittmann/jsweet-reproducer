@@ -17,10 +17,8 @@
 package io.apicurio.datamodels.core.visitors;
 
 import io.apicurio.datamodels.core.models.Document;
-import io.apicurio.datamodels.core.models.Extension;
 import io.apicurio.datamodels.core.models.common.Operation;
 import io.apicurio.datamodels.core.models.common.Parameter;
-import io.apicurio.datamodels.core.models.common.Schema;
 
 /**
  * A basic visitor interface used to visit data model instances.
@@ -29,8 +27,6 @@ import io.apicurio.datamodels.core.models.common.Schema;
 public interface IVisitor {
 
     void visitDocument(Document node);
-    void visitExtension(Extension node);
     void visitOperation(Operation node);
     void visitParameter(Parameter node);
-    void visitSchema(Schema node);
 }

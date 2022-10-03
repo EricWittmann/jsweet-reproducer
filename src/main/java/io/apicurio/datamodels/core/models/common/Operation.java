@@ -17,39 +17,15 @@
 package io.apicurio.datamodels.core.models.common;
 
 import io.apicurio.datamodels.core.models.ExtensibleNode;
-import io.apicurio.datamodels.core.visitors.IVisitor;
 
 /**
  * @author eric.wittmann@gmail.com
  */
-public abstract class Operation extends ExtensibleNode {
-    
-    protected String _type;
-    public String operationId;
-    public String summary;
-    public String description;
+public interface Operation extends ExtensibleNode {
 
-    /**
-     * Constructor.
-     * @param opType
-     */
-    public Operation(String opType) {
-        this._type = opType;
-    }
-    
     /**
      * Gets the operation type.
      */
-    public String getType() {
-        return this._type;
-    }
-    
-    /**
-     * @see io.apicurio.datamodels.core.models.Node#accept(io.apicurio.datamodels.core.visitors.IVisitor)
-     */
-    @Override
-    public void accept(IVisitor visitor) {
-        visitor.visitOperation(this);
-    }
+    public String getType();
 
 }

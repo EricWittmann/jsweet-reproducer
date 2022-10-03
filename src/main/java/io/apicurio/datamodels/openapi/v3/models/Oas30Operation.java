@@ -16,72 +16,47 @@
 
 package io.apicurio.datamodels.openapi.v3.models;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import io.apicurio.datamodels.openapi.models.OasOperation;
+
 import java.util.List;
 import java.util.Map;
-
-import io.apicurio.datamodels.openapi.models.OasOperation;
 
 /**
  * Models an OpenAPI 3.0.x operation.
  * @author eric.wittmann@gmail.com
  */
-public class Oas30Operation extends OasOperation {
+public interface Oas30Operation extends OasOperation {
 
-    public Map<String, Oas30Callback> callbacks = new LinkedHashMap<>();
-
-    /**
-     * Constructor.
-     * @param method
-     */
-    public Oas30Operation(String method) {
-        super(method);
-    }
+    public Map<String, Oas30Callback> callbacks();
 
     /**
      * Creates a callback.
      * @param name
      */
-    public Oas30Callback createCallback(String name) {
-        Oas30Callback rval = new Oas30Callback(name);
-        rval._ownerDocument = this.ownerDocument();
-        rval._parent = this;
-        return rval;
-    }
+    public Oas30Callback createCallback(String name);
 
     /**
      * Adds a callback.
      * @param name
      * @param callback
      */
-    public void addCallback(String name, Oas30Callback callback) {
-        this.callbacks.put(name, callback);
-    }
+    public void addCallback(String name, Oas30Callback callback);
 
     /**
      * Gets a single callback by name.
      * @param name
      */
-    public Oas30Callback getCallback(String name) {
-        return this.callbacks.get(name);
-    }
+    public Oas30Callback getCallback(String name);
 
     /**
      * Removes a single callback and returns it.  This may return null or undefined if none found.
      * @param name
      */
-    public Oas30Callback removeCallback(String name) {
-        return this.callbacks.remove(name);
-    }
+    public Oas30Callback removeCallback(String name);
 
     /**
      * Gets a list of all callbacks.
      */
-    public List<Oas30Callback> getCallbacks() {
-        List<Oas30Callback> rval = new ArrayList<>();
-        rval.addAll(this.callbacks.values());
-        return rval;
-    }
+    public List<Oas30Callback> getCallbacks();
 
 }

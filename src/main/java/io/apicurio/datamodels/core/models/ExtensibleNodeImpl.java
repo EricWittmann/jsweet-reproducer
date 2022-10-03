@@ -16,24 +16,19 @@
 
 package io.apicurio.datamodels.core.models;
 
-import io.apicurio.datamodels.core.visitors.IVisitor;
-
 /**
- * Models a single extension property of a node in the data model.  For example, if the
- * Info node has a property called "x-vendor-zipcode" with a value of "90210", that would
- * result in an instance of this class with appropriate values for "name" and "value".
+ * All data models that can be extended using the "x-*" approach to adding vendor extension 
+ * properties must extend this class.
  * @author eric.wittmann@gmail.com
  */
-public class Extension extends Node {
-
-    public String name;
-    public Object value;
+public abstract class ExtensibleNodeImpl extends NodeImpl implements ExtensibleNode {
 
     /**
-     * @see io.apicurio.datamodels.core.models.Node#accept(io.apicurio.datamodels.core.visitors.IVisitor)
+     * @see Node#isExtensible()
      */
     @Override
-    public void accept(IVisitor visitor) {
-        visitor.visitExtension(this);
+    public boolean isExtensible() {
+        return true;
     }
+
 }

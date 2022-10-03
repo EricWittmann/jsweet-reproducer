@@ -16,36 +16,16 @@
 
 package io.apicurio.datamodels.openapi.v3.models;
 
-import io.apicurio.datamodels.openapi.models.OasOperation;
 import io.apicurio.datamodels.openapi.models.OasPathItem;
 
 /**
  * Models an OpenAPI 3.0.x path item.
  * @author eric.wittmann@gmail.com
  */
-public class Oas30PathItem extends OasPathItem {
+public interface Oas30PathItem extends OasPathItem {
     
-    public String summary;
-    public String description;
-    public Oas30Operation trace;
-
-    /**
-     * Constructor.
-     * @param path
-     */
-    public Oas30PathItem(String path) {
-        super(path);
-    }
-
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasPathItem#createOperation(java.lang.String)
-     */
-    @Override
-    public OasOperation createOperation(String method) {
-        OasOperation rval = new Oas30Operation(method);
-        rval._ownerDocument = this.ownerDocument();
-        rval._parent = this;
-        return rval;
-    }
+    public String getSummary();
+    public String getDescription();
+    public Oas30Operation trace();
 
 }

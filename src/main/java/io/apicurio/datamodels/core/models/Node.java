@@ -16,112 +16,61 @@
 
 package io.apicurio.datamodels.core.models;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import io.apicurio.datamodels.core.visitors.IVisitor;
 
 /**
  * Base class for all node types in all data models.
  * @author eric.wittmann@gmail.com
  */
-public abstract class Node implements IVisitable {
-    
-    private static int __modelIdCounter = 0;
-
-    public Document _ownerDocument;
-    public Node _parent;
-    protected int _modelId = __modelIdCounter++;
-    protected Map<String, Object> _attributes;
-
-	/**
-	 * Properties that are present in the source document,
-	 * but are not defined in the specification for this node,
-	 * so they can't be read directly into the data model fields.
-	 */
-	protected Map<String, Object> _extraProperties;
+public interface Node extends IVisitable {
 
     /**
      * Gets the owner document.
      */
-    public Document ownerDocument() {
-        return this._ownerDocument;
-    }
-    
+    public Document ownerDocument();
+
+	public void setDocument(Document doc);
+
     /**
      * Returns true if this node is extensible.
      */
-    public boolean isExtensible() {
-        return false;
-    }
+    public boolean isExtensible();
 
     /**
      * Gets the parent.
      */
-    public Node parent() {
-        return this._parent;
-    }
+    public Node parent();
+
+	public void setParent(Node parent);
 
     /**
      * Gets the model's unique ID.
      */
-    public int modelId() {
-        return this._modelId;
-    }
+    public int modelId();
 
-	/**
-	 * @see io.apicurio.datamodels.core.models.IVisitable#accept(io.apicurio.datamodels.core.visitors.IVisitor)
-	 */
-	public abstract void accept(IVisitor visitor);
-	
 	/**
 	 * Gets a single attribute by name.
 	 * @param attributeName
 	 */
-	public Object getAttribute(String attributeName) {
-	    if (this._attributes != null) {
-	        return this._attributes.get(attributeName);
-	    } else {
-	        return null;
-	    }
-	}
+	public Object getAttribute(String attributeName);
 
 	/**
 	 * Sets a single named attribute value.
 	 * @param attributeName
 	 * @param attributeValue
 	 */
-	public void setAttribute(String attributeName, Object attributeValue) {
-	    if (this._attributes == null) {
-	        this._attributes = new HashMap<>();
-	    }
-	    this._attributes.put(attributeName, attributeValue);
-	}
+	public void setAttribute(String attributeName, Object attributeValue);
 	
 	/**
 	 * Gets a collection of all the attribute names.
 	 */
-	public Collection<String> getAttributeNames() {
-	    if (this._attributes != null) {
-	        return this._attributes.keySet();
-	    } else {
-	        return Collections.emptyList();
-	    }
-	}
+	public Collection<String> getAttributeNames();
 	
 	/**
 	 * Deletes all attributes in the node.
 	 */
-	public void clearAttributes() {
-	    if (this._attributes != null) {
-	        this._attributes.clear();
-	    }
-	}
+	public void clearAttributes();
 
     /**
      * Adds an extra property to the data model.  This is called when the reader encounters a property
@@ -129,52 +78,22 @@ public abstract class Node implements IVisitable {
      * @param key
      * @param value
      */
-    public void addExtraProperty(String key, Object value) {
-        if (this._extraProperties == null) {
-            this._extraProperties = new LinkedHashMap<>();
-        }
-        this._extraProperties.put(key, value);
-    }
+    public void addExtraProperty(String key, Object value);
     
-    public Object removeExtraProperty(String name) {
-        if (this._extraProperties != null && this._extraProperties.containsKey(name)) {
-            return this._extraProperties.remove(name);
-        }
-        return null;
-    }
+    public Object removeExtraProperty(String name);
 
-    public boolean hasExtraProperties() {
-        return this._extraProperties != null && this._extraProperties.size() > 0;
-    }
+    public boolean hasExtraProperties();
 
-    public List<String> getExtraPropertyNames() {
-        if (this.hasExtraProperties()) {
-            return new ArrayList<String>(this._extraProperties.keySet());
-        }
-        return Collections.emptyList();
-    }
+    public List<String> getExtraPropertyNames();
 
-    public Object getExtraProperty(String name) {
-        if (this.hasExtraProperties()) {
-            return this._extraProperties.get(name);
-        }
-        return null;
-    }
+    public Object getExtraProperty(String name);
 
 	/**
 	 * Determine if this node has a parent and owner document defined.
 	 *
 	 * @throws java.lang.IllegalStateException if the state is inconsistent, i.e. one is set but not the other
 	 */
-	public boolean isAttached() {
-    	if(_parent == null || _ownerDocument == null) {
-			if(_parent == null && _ownerDocument == null)
-				return false;
-			else
-				throw new IllegalStateException("Partially attached.");
-		}
-    	return true;
-	}
+	public boolean isAttached();
 
 	/**
 	 * Set this {@link io.apicurio.datamodels.core.models.Node} to have the argument as its parent,
@@ -185,11 +104,6 @@ public abstract class Node implements IVisitable {
 	 * @throws java.lang.IllegalArgumentException if the parent is not attached itself
 	 * @throws java.lang.IllegalStateException if the parent's {@link Node#isAttached()} throws the exception
 	 */
-	public void attachToParent(Node parent) {
-		if(!parent.isAttached())
-			throw new IllegalArgumentException("Target parent node (method argument) is not itself attached.");
-    	this._ownerDocument = parent.ownerDocument();
-    	this._parent = parent;
-	}
+	public void attachToParent(Node parent);
 
 }

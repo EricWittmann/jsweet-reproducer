@@ -16,30 +16,10 @@
 
 package io.apicurio.datamodels.openapi.v3.models;
 
-import io.apicurio.datamodels.core.visitors.IVisitor;
-import io.apicurio.datamodels.openapi.v3.visitors.IOas30Visitor;
-
 /**
  * Models a callback path item.
  * @author eric.wittmann@gmail.com
  */
-public class Oas30CallbackPathItem extends Oas30PathItem {
-    
-    /**
-     * Constructor.
-     * @param path
-     */
-    public Oas30CallbackPathItem(String path) {
-        super(path);
-    }
-
-    /**
-     * @see io.apicurio.datamodels.openapi.models.OasPathItem#accept(io.apicurio.datamodels.core.visitors.IVisitor)
-     */
-    @Override
-    public void accept(IVisitor visitor) {
-        IOas30Visitor viz = (IOas30Visitor) visitor;
-        viz.visitCallbackPathItem(this);
-    }
+public interface Oas30CallbackPathItem extends Oas30PathItem {
 
 }
