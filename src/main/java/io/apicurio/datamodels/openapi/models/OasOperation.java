@@ -19,7 +19,6 @@ package io.apicurio.datamodels.openapi.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.apicurio.datamodels.compat.NodeCompat;
 import io.apicurio.datamodels.core.models.common.Operation;
 
 /**

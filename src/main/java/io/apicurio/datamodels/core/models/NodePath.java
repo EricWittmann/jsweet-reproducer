@@ -19,7 +19,6 @@ package io.apicurio.datamodels.core.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.apicurio.datamodels.compat.NodeCompat;
 import io.apicurio.datamodels.core.visitors.IVisitor;
 
 /**
@@ -271,8 +270,6 @@ public class NodePath {
                 } else {
                     childNode = null;
                 }
-            } else {
-                childNode = NodeCompat.getProperty(from, this.getValue());
             }
             return childNode;
         }
